@@ -2,10 +2,8 @@ import os, gdown
 
 import tensorflow as tf
 
-from helper.image import alignment_helper
-
 def load_file():
-    gdown.download('https://drive.google.com/uc?id=1YSVfAQT8rN8gGo3tvbXGzBnGXmp0Ojs_', "model.zip")
+    gdown.download('https://drive.google.com/uc?id=1bC2OJyC-j8Lr4Jtk73DGZo0qeWPQPUuu', "model.zip")
     os.remove("/app/helper/model.zip")
 
 def load_model():
@@ -13,6 +11,11 @@ def load_model():
         load_file()
     model = tf.keras.models.load_model()
     return model
+
+@tf.function
+def alignment_helper(image):
+    img = tf.io.read_file(image)
+    return img
 
 def pinpoint(rimage):
     model = load_model()
